@@ -1,290 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Heart Catcher 💕</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💕 Heart Catcher</title>
 
-<style>
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  body {
-    font-family: "Comic Sans MS", cursive, sans-serif;
-    min-height: 100vh;
-    overflow: hidden;
-    background: linear-gradient(135deg, #ffd6e7, #d9c7ff, #bdefff);
-    color: #6b3157;
-  }
-
-  .game {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-  }
-
-  /* Background bubbles */
-  .bubble {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255,255,255,.35);
-    animation: float 6s infinite ease-in-out;
-  }
-
-  .b1 {
-    width: 80px;
-    height: 80px;
-    left: 10%;
-    top: 20%;
-  }
-
-  .b2 {
-    width: 130px;
-    height: 130px;
-    right: 8%;
-    top: 35%;
-    animation-delay: 1s;
-  }
-
-  .b3 {
-    width: 50px;
-    height: 50px;
-    left: 70%;
-    top: 15%;
-    animation-delay: 2s;
-  }
-
-  @keyframes float {
-    50% {
-      transform: translateY(-30px);
-    }
-  }
-
-  .top {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(90%, 650px);
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 15px 20px;
-    border-radius: 25px;
-
-    background: rgba(255,255,255,.6);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 30px rgba(150,80,120,.15);
-
-    z-index: 10;
-  }
-
-  .title {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-
-  .stats {
-    display: flex;
-    gap: 18px;
-    font-size: 1rem;
-  }
-
-  .game-area {
-    position: absolute;
-    inset: 0;
-  }
-
-  .heart {
-    position: absolute;
-    font-size: 45px;
-    cursor: pointer;
-    user-select: none;
-
-    filter: drop-shadow(0 5px 5px rgba(120,50,100,.2));
-
-    animation: wobble .7s infinite alternate;
-  }
-
-  @keyframes wobble {
-    from {
-      transform: rotate(-8deg) scale(1);
-    }
-    to {
-      transform: rotate(8deg) scale(1.08);
-    }
-  }
-
-  .pop {
-    position: absolute;
-    pointer-events: none;
-    font-size: 25px;
-    animation: pop .5s forwards;
-  }
-
-  @keyframes pop {
-    0% {
-      opacity: 1;
-      transform: scale(.5);
+  <style>
+    * {
+      box-sizing: border-box;
     }
 
-    100% {
-      opacity: 0;
-      transform: translateY(-60px) scale(1.5);
-    }
-  }
-
-  .start-screen,
-  .game-over {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background: rgba(255,220,238,.65);
-    backdrop-filter: blur(8px);
-
-    z-index: 20;
-  }
-
-  .panel {
-    width: min(90%, 400px);
-    text-align: center;
-    padding: 40px 25px;
-
-    background: white;
-    border-radius: 35px;
-
-    box-shadow: 0 20px 60px rgba(130,70,110,.25);
-  }
-
-  .panel h1 {
-    font-size: 2.5rem;
-    color: #ff5c9a;
-    margin-bottom: 10px;
-  }
-
-  .panel p {
-    margin: 10px 0 25px;
-    line-height: 1.6;
-  }
-
-  button {
-    border: none;
-    padding: 15px 30px;
-    border-radius: 50px;
-
-    background: linear-gradient(135deg, #ff76aa, #a978ff);
-    color: white;
-
-    font-family: inherit;
-    font-size: 1.1rem;
-    font-weight: bold;
-
-    cursor: pointer;
-
-    box-shadow: 0 8px 20px rgba(200,90,150,.3);
-    transition: .2s;
-  }
-
-  button:hover {
-    transform: translateY(-3px) scale(1.05);
-  }
-
-  .hidden {
-    display: none;
-  }
-
-  .instructions {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 8px 15px;
-    border-radius: 20px;
-
-    background: rgba(255,255,255,.45);
-    font-size: .9rem;
-  }
-
-  @media (max-width: 500px) {
-    .top {
-      font-size: .85rem;
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: "Comic Sans MS", Arial, sans-serif;
+      background: linear-gradient(135deg, #ffd6e7, #d9c7ff, #bdefff);
+      color: #713b60;
     }
 
-    .title {
-      font-size: 1.1rem;
+    #game {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
     }
 
-    .stats {
-      gap: 8px;
+    /* Top scoreboard */
+    #hud {
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+
+      width: min(92%, 600px);
+      padding: 14px 20px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 25px;
+      box-shadow: 0 8px 25px rgba(100, 50, 100, 0.15);
     }
 
+    #title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    #stats {
+      display: flex;
+      gap: 15px;
+      font-weight: bold;
+    }
+
+    /* Hearts */
     .heart {
+      position: absolute;
+      z-index: 10;
+
+      width: 55px;
+      height: 55px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 45px;
+      cursor: pointer;
+      user-select: none;
+      touch-action: manipulation;
+
+      transition: transform 0.1s;
+    }
+
+    .heart:hover {
+      transform: scale(1.2);
+    }
+
+    .heart:active {
+      transform: scale(0.8);
+    }
+
+    /* Score animation */
+    .plus {
+      position: absolute;
+      z-index: 50;
+
+      color: #ff4f91;
+      font-size: 25px;
+      font-weight: bold;
+
+      pointer-events: none;
+
+      animation: popUp 0.6s ease-out forwards;
+    }
+
+    @keyframes popUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-60px) scale(1.4);
+      }
+    }
+
+    /* Screens */
+    .screen {
+      position: absolute;
+      inset: 0;
+      z-index: 200;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background: rgba(255, 220, 238, 0.65);
+      backdrop-filter: blur(8px);
+    }
+
+    .box {
+      width: min(90%, 400px);
+      padding: 35px 25px;
+
+      text-align: center;
+
+      background: white;
+      border-radius: 35px;
+
+      box-shadow: 0 20px 60px rgba(100, 50, 100, 0.2);
+    }
+
+    .box h1 {
+      margin-top: 0;
+      color: #ff5796;
       font-size: 38px;
     }
-  }
-</style>
+
+    .box p {
+      line-height: 1.6;
+      font-size: 17px;
+    }
+
+    button {
+      border: 0;
+      padding: 15px 30px;
+
+      border-radius: 50px;
+
+      background: linear-gradient(135deg, #ff6fa8, #9c6cff);
+      color: white;
+
+      font-family: inherit;
+      font-size: 18px;
+      font-weight: bold;
+
+      cursor: pointer;
+
+      box-shadow: 0 8px 20px rgba(180, 80, 140, 0.3);
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Cute background decorations */
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      pointer-events: none;
+    }
+
+    .bubble1 {
+      width: 100px;
+      height: 100px;
+      left: 10%;
+      top: 30%;
+    }
+
+    .bubble2 {
+      width: 150px;
+      height: 150px;
+      right: 5%;
+      bottom: 15%;
+    }
+
+    .bubble3 {
+      width: 60px;
+      height: 60px;
+      right: 25%;
+      top: 20%;
+    }
+
+    @media (max-width: 500px) {
+      #title {
+        font-size: 16px;
+      }
+
+      #stats {
+        gap: 7px;
+        font-size: 13px;
+      }
+
+      .heart {
+        width: 50px;
+        height: 50px;
+        font-size: 40px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="game">
+<div id="game">
 
-  <div class="bubble b1"></div>
-  <div class="bubble b2"></div>
-  <div class="bubble b3"></div>
+  <!-- Background -->
+  <div class="bubble bubble1"></div>
+  <div class="bubble bubble2"></div>
+  <div class="bubble bubble3"></div>
 
-  <div class="top">
-    <div class="title">💕 Heart Catcher</div>
+  <!-- Score -->
+  <div id="hud">
+    <div id="title">💕 Heart Catcher</div>
 
-    <div class="stats">
-      <div>⭐ <span id="score">0</span></div>
-      <div>❤️ <span id="lives">3</span></div>
-      <div>⏱️ <span id="time">30</span></div>
+    <div id="stats">
+      <span>⭐ <span id="score">0</span></span>
+      <span>❤️ <span id="lives">3</span></span>
+      <span>⏱️ <span id="time">30</span></span>
     </div>
   </div>
 
-  <div id="gameArea" class="game-area"></div>
-
-  <div class="instructions">
-    Click the hearts before they disappear! 💖
-  </div>
-
-  <!-- Start -->
-  <div id="startScreen" class="start-screen">
-    <div class="panel">
-      <h1>💗 Heart Catcher</h1>
+  <!-- Start screen -->
+  <div id="startScreen" class="screen">
+    <div class="box">
+      <h1>💕 Heart Catcher</h1>
 
       <p>
-        Catch as many cute hearts as you can!
-        Don't let them escape. 🥺
+        Catch the falling hearts before they reach
+        the bottom! 🥰
       </p>
 
-      <button onclick="startGame()">
+      <p>
+        You have <b>3 lives</b> and <b>30 seconds</b>.
+      </p>
+
+      <button id="startButton">
         Start Game ✨
       </button>
     </div>
   </div>
 
-  <!-- Game Over -->
-  <div id="gameOver" class="game-over hidden">
-    <div class="panel">
-      <h1>Game Over 💕</h1>
+  <!-- Game over -->
+  <div id="gameOver" class="screen hidden">
+    <div class="box">
+      <h1>Game Over 💗</h1>
 
       <p>
-        You caught <strong><span id="finalScore">0</span></strong>
-        hearts! 🌸
+        You caught
+        <b><span id="finalScore">0</span></b>
+        hearts!
       </p>
 
-      <button onclick="startGame()">
+      <button id="restartButton">
         Play Again 🔄
       </button>
     </div>
@@ -292,163 +280,337 @@
 
 </div>
 
+
 <script>
-  const gameArea = document.getElementById("gameArea");
-  const scoreText = document.getElementById("score");
-  const livesText = document.getElementById("lives");
-  const timeText = document.getElementById("time");
+  // =========================
+  // GAME VARIABLES
+  // =========================
+
+  const game = document.getElementById("game");
+
+  const scoreElement = document.getElementById("score");
+  const livesElement = document.getElementById("lives");
+  const timeElement = document.getElementById("time");
+
   const startScreen = document.getElementById("startScreen");
-  const gameOver = document.getElementById("gameOver");
+  const gameOverScreen = document.getElementById("gameOver");
+
+  const startButton = document.getElementById("startButton");
+  const restartButton = document.getElementById("restartButton");
+
   const finalScore = document.getElementById("finalScore");
+
 
   let score = 0;
   let lives = 3;
   let time = 30;
+
   let playing = false;
 
-  let heartTimer;
-  let clockTimer;
+  let spawnTimer = null;
+  let clockTimer = null;
 
-  const hearts = [
+
+  const heartTypes = [
     "💗",
     "💖",
     "💕",
     "💓",
     "💘",
     "💝",
-    "❤️",
-    "🩷"
+    "🩷",
+    "❤️"
   ];
 
+
+  // =========================
+  // START GAME
+  // =========================
+
   function startGame() {
+
+    // Stop old timers
+    clearInterval(spawnTimer);
+    clearInterval(clockTimer);
+
+    // Remove old hearts
+    document.querySelectorAll(".heart").forEach(function(heart) {
+      heart.remove();
+    });
+
+    // Reset values
     score = 0;
     lives = 3;
     time = 30;
+
     playing = true;
 
-    scoreText.textContent = score;
-    livesText.textContent = lives;
-    timeText.textContent = time;
+    updateHUD();
 
+    // Hide screens
     startScreen.classList.add("hidden");
-    gameOver.classList.add("hidden");
+    gameOverScreen.classList.add("hidden");
 
-    gameArea.innerHTML = "";
+    // Create hearts regularly
+    spawnTimer = setInterval(function() {
+      createHeart();
+    }, 650);
 
-    clearInterval(heartTimer);
-    clearInterval(clockTimer);
+    // Countdown
+    clockTimer = setInterval(function() {
 
-    heartTimer = setInterval(createHeart, 700);
+      if (!playing) {
+        return;
+      }
 
-    clockTimer = setInterval(() => {
       time--;
 
-      timeText.textContent = time;
+      updateHUD();
 
       if (time <= 0) {
         endGame();
       }
+
     }, 1000);
   }
 
+
+  // =========================
+  // CREATE HEART
+  // =========================
+
   function createHeart() {
-    if (!playing) return;
+
+    if (!playing) {
+      return;
+    }
 
     const heart = document.createElement("div");
 
     heart.className = "heart";
-    heart.textContent =
-      hearts[Math.floor(Math.random() * hearts.length)];
 
+    // Random heart
+    const randomIndex =
+      Math.floor(Math.random() * heartTypes.length);
+
+    heart.textContent = heartTypes[randomIndex];
+
+
+    // Random horizontal position
     const maxX = window.innerWidth - 60;
-    const x = Math.random() * maxX;
+
+    const x =
+      Math.max(10, Math.random() * maxX);
+
 
     heart.style.left = x + "px";
-    heart.style.top = "-60px";
+    heart.style.top = "-70px";
 
-    gameArea.appendChild(heart);
 
-    let y = -60;
+    // Add heart to game
+    game.appendChild(heart);
 
+
+    // IMPORTANT:
+    // This makes the heart clickable/tappable.
+    heart.addEventListener("pointerdown", function(event) {
+
+      event.preventDefault();
+
+      catchHeart(heart);
+
+    });
+
+
+    // Start falling
+    fallHeart(heart);
+  }
+
+
+  // =========================
+  // FALLING HEART
+  // =========================
+
+  function fallHeart(heart) {
+
+    let y = -70;
+
+    // Speed increases as time passes
     const speed =
-      1.5 +
-      Math.random() * 2 +
-      (30 - time) * 0.04;
+      2 + Math.random() * 2 + (30 - time) * 0.05;
 
-    const fall = setInterval(() => {
+
+    function move() {
+
+      // Stop if game ended
       if (!playing) {
-        clearInterval(fall);
         return;
       }
 
+      // Heart may have already been caught
+      if (!heart.isConnected) {
+        return;
+      }
+
+
       y += speed;
+
       heart.style.top = y + "px";
 
+
+      // Heart reached bottom
       if (y > window.innerHeight) {
-        clearInterval(fall);
 
-        if (heart.parentElement) {
-          heart.remove();
-          loseLife();
-        }
+        heart.remove();
+
+        loseLife();
+
+        return;
       }
-    }, 16);
 
-    heart.addEventListener("click", () => {
-      if (!playing) return;
 
-      clearInterval(fall);
+      requestAnimationFrame(move);
+    }
 
-      score++;
-      scoreText.textContent = score;
 
-      showPop(
-        heart.offsetLeft,
-        heart.offsetTop
-      );
-
-      heart.remove();
-    });
+    requestAnimationFrame(move);
   }
 
+
+  // =========================
+  // CATCH HEART
+  // =========================
+
+  function catchHeart(heart) {
+
+    // Prevent double clicking
+    if (!playing || !heart.isConnected) {
+      return;
+    }
+
+    // Get position before removing
+    const rect = heart.getBoundingClientRect();
+
+
+    // Increase score
+    score++;
+
+    updateHUD();
+
+
+    // Show +1 animation
+    showPoints(
+      rect.left,
+      rect.top
+    );
+
+
+    // Remove heart
+    heart.remove();
+  }
+
+
+  // =========================
+  // LOSE LIFE
+  // =========================
+
   function loseLife() {
+
+    if (!playing) {
+      return;
+    }
+
     lives--;
 
-    livesText.textContent = lives;
+    updateHUD();
+
 
     if (lives <= 0) {
       endGame();
     }
   }
 
-  function showPop(x, y) {
-    const pop = document.createElement("div");
 
-    pop.className = "pop";
-    pop.textContent = "+1 💕";
+  // =========================
+  // +1 ANIMATION
+  // =========================
 
-    pop.style.left = x + "px";
-    pop.style.top = y + "px";
+  function showPoints(x, y) {
 
-    gameArea.appendChild(pop);
+    const points = document.createElement("div");
 
-    setTimeout(() => {
-      pop.remove();
-    }, 500);
+    points.className = "plus";
+
+    points.textContent = "+1 💕";
+
+    points.style.left = x + "px";
+    points.style.top = y + "px";
+
+    game.appendChild(points);
+
+
+    setTimeout(function() {
+      points.remove();
+    }, 600);
   }
+
+
+  // =========================
+  // UPDATE SCORE
+  // =========================
+
+  function updateHUD() {
+
+    scoreElement.textContent = score;
+    livesElement.textContent = lives;
+    timeElement.textContent = time;
+  }
+
+
+  // =========================
+  // END GAME
+  // =========================
 
   function endGame() {
+
+    if (!playing) {
+      return;
+    }
+
     playing = false;
 
-    clearInterval(heartTimer);
+
+    // Stop timers
+    clearInterval(spawnTimer);
     clearInterval(clockTimer);
 
-    document.querySelectorAll(".heart").forEach(h => h.remove());
 
+    // Remove all hearts
+    document.querySelectorAll(".heart").forEach(function(heart) {
+      heart.remove();
+    });
+
+
+    // Show final score
     finalScore.textContent = score;
 
-    gameOver.classList.remove("hidden");
+    gameOverScreen.classList.remove("hidden");
   }
+
+
+  // =========================
+  // BUTTONS
+  // =========================
+
+  startButton.addEventListener("click", function() {
+    startGame();
+  });
+
+
+  restartButton.addEventListener("click", function() {
+    startGame();
+  });
+
 </script>
 
 </body>
